@@ -16,6 +16,11 @@ class Persona extends Model
      * @var string
      */
     const APELLIDOS_DEFECTO = 'Robles';
+    /**
+     * Edad por defecto
+     * @var int
+     */
+    const EDAD_DEFECTO = 0;
 
     /**
      * El nombre de la persona
@@ -28,10 +33,17 @@ class Persona extends Model
      */
     private $_apellidos = self::APELLIDOS_DEFECTO;
 
-    public function __construct($nombre = '', $apellidos = '', $config = [])
+    /**
+     * Edad de la perrsona
+     * @var string
+     */
+    public $edad;
+
+    public function __construct($nombre = '', $apellidos = '', $edad = 0, $config = [])
     {
         $this->nombre = $nombre;
         $this->apellidos = $apellidos;
+        $this->edad = $edad;
         parent::__construct($config);
     }
 
@@ -69,5 +81,28 @@ class Persona extends Model
     public function getApellidos()
     {
         return $this->_apellidos;
+    }
+
+    public function attributes()
+    {
+        return array_merge(['nombre', 'apellidos'], parent::attributes());
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'nombre' => 'Nombre',
+            'apellidos' => 'Apellidos',
+            'edad' => 'Edad',
+        ];
+    }
+
+    public function rules()
+    {
+        return [
+            [['nombre', 'apellidos', 'edad'], 'trim'],
+            [['nombre', 'apellidos'], 'required'],
+            ['nombre', 'string', 'length' => [2, 10]],
+        ];
     }
 }
