@@ -55,9 +55,4 @@ class Comentarios extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Fichas::className(), ['id' => 'id_ficha'])->inverseOf('comentarios');
     }
-
-    public function getTitulo()
-    {
-        return $titulo;
-    }
 }

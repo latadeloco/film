@@ -12,13 +12,13 @@ use app\models\Comentarios;
  */
 class ComentariosSearch extends Comentarios
 {
+    public $titulo;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_ficha'], 'integer'],
             [['cuerpo'], 'safe'],
             [['titulo'], 'safe'],
         ];
@@ -33,6 +33,11 @@ class ComentariosSearch extends Comentarios
         return Model::scenarios();
     }
 
+    public function attributes()
+    {
+        return array_merge(['titulo'], parent::attributes());
+    }
+
     /**
      * Creates data provider instance with search query applied
      *
@@ -42,8 +47,10 @@ class ComentariosSearch extends Comentarios
      */
     public function search($params)
     {
-        $query = Comentarios::find();
-        
+        $query = Comentarios::find()->select('comentarios.*, titulo')
+                    ->innerJoin('fichas f', 'f.id = comentarios.id_ficha')
+                    ->asArray();
+
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -61,10 +68,10 @@ class ComentariosSearch extends Comentarios
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_ficha' => $this->id_ficha,
         ]);
 
         $query->andFilterWhere(['like', 'cuerpo', $this->cuerpo]);
+        $query->andFilterWhere(['ilike', 'titulo', $this->titulo]);
 
         return $dataProvider;
     }

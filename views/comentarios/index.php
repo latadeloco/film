@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'cuerpo:ntext',
-            'id_ficha',
+            'titulo',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
