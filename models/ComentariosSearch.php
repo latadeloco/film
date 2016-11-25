@@ -43,7 +43,7 @@ class ComentariosSearch extends Comentarios
     public function search($params)
     {
         $query = Comentarios::find();
-
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'cuerpo:ntext',
             'id_ficha',
-            'titulo',
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

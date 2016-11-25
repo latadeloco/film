@@ -32,7 +32,6 @@ class Comentarios extends \yii\db\ActiveRecord
             [['cuerpo', 'id_ficha'], 'required'],
             [['cuerpo'], 'string'],
             [['id_ficha'], 'integer'],
-            [['titulo'], 'string'],
             [['id_ficha'], 'exist', 'skipOnError' => true, 'targetClass' => Fichas::className(), 'targetAttribute' => ['id_ficha' => 'id']],
         ];
     }
@@ -45,7 +44,7 @@ class Comentarios extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'cuerpo' => 'Cuerpo',
-            'id_ficha' => 'Id Ficha',
+            'id_ficha' => 'Título',
         ];
     }
 
@@ -55,5 +54,10 @@ class Comentarios extends \yii\db\ActiveRecord
     public function getIdFicha()
     {
         return $this->hasOne(Fichas::className(), ['id' => 'id_ficha'])->inverseOf('comentarios');
+    }
+
+    public function getTitulo()
+    {
+        return $titulo;
     }
 }
